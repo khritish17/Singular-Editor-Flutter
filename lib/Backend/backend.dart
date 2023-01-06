@@ -1,6 +1,5 @@
 class Backend{
   Backend(){
-
   }
 
   String convert(String input_){

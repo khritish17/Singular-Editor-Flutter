@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:singular_editor/Backend/backend.dart';
 
 
 class Mobile extends StatefulWidget {
@@ -118,7 +119,11 @@ class _EditorState extends State<Editor> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [FloatingActionButton.extended(
-                onPressed: (){print(inputController.text);},
+                onPressed: (){
+                  print(inputController.text);
+                  Backend BCK = Backend();
+                  print(BCK.convert(inputController.text));
+                  },
                 label: Text('COMPILE'),
                 backgroundColor: Colors.pink,
                 icon: Icon(Icons.play_arrow),
