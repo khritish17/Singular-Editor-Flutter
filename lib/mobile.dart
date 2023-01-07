@@ -22,37 +22,7 @@ class _MobileState extends State<Mobile> {
         child:
             Column(
             children: [
-              // TextFormField(
-              //     decoration: InputDecoration(
-              //       hintText: 'Untitled file',
-              //       hintStyle: TextStyle(color: Colors.white.withAlpha(150), fontSize: 16,),
-              //       enabledBorder: OutlineInputBorder(
-              //         borderSide: const BorderSide(color: Colors.lightGreenAccent, width: 3.0),
-              //         borderRadius: BorderRadius.circular(15.0),
-              //       ),
-              //       focusedBorder:OutlineInputBorder(
-              //         borderSide: const BorderSide(color: Colors.pink, width: 3.0),
-              //         borderRadius: BorderRadius.circular(25.0),
-              //       ),
-              //     ),
-              //   ),
               Editor(),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //   children: [FloatingActionButton.extended(
-              //     onPressed: (){},
-              //     label: Text('COMPILE'),
-              //     backgroundColor: Colors.pink,
-              //     icon: Icon(Icons.play_arrow),
-              //   ),FloatingActionButton.extended(
-              //     onPressed: (){},
-              //     label: Text('SAVE'),
-              //     backgroundColor: Colors.green,
-              //     icon: Icon(Icons.thumb_up),
-              //   ),],
-              // ),
-
-
             ],
           )
         ),
@@ -119,15 +89,22 @@ class _EditorState extends State<Editor> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [FloatingActionButton.extended(
+                heroTag: 'compile btn',
                 onPressed: (){
-                  print(inputController.text);
+
+                  // print(inputController.text);
                   Backend BCK = Backend();
-                  print(BCK.convert(inputController.text));
+                  // print(BCK.convert(inputController.text));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) =>  Mobile_Viewer(BCK.convert(inputController.text))),
+                  );
                   },
                 label: Text('COMPILE'),
                 backgroundColor: Colors.pink,
                 icon: Icon(Icons.play_arrow),
               ),FloatingActionButton.extended(
+                heroTag: 'save btn',
                 onPressed: (){},
                 label: Text('SAVE'),
                 backgroundColor: Colors.green,
@@ -141,6 +118,50 @@ class _EditorState extends State<Editor> {
     );
   }
 }
+
+class Mobile_Viewer extends StatelessWidget {
+  // const Mobile_Viewer({Key? key}) : super(key: key);
+  // const Mobile_Viewer(String input_ ,{Key? key}) : super(key: key);
+  final String input_;
+  const Mobile_Viewer(this.input_);
+  @override
+  Widget build(BuildContext context) {
+    // print(input_);
+    String output_;
+    output_ = input_;
+    if (input_ == ""){
+      output_ = "Please write something";
+    }
+    double screen_width = MediaQuery.of(context).size.width;
+    double screen_height = MediaQuery.of(context).size.height;
+    return Scaffold(
+      // backgroundColor: Colors.grey,
+      appBar: AppBar(
+        title: Text('Singular Viewer'),
+      ),
+      body: Container(
+        height: screen_height * (92.9/100),
+        width: screen_width,
+        color: Colors.black,
+        child: SingleChildScrollView(
+          child: Container(
+            width: screen_width,
+            margin: const EdgeInsets.all(6),
+            padding: const EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              color: Colors.black,
+              // border: Border.all(color: Colors.white,width: 2.5),
+              // borderRadius: BorderRadius.all(Radius.circular(30))
+            ),
+            
+            child: Text(output_, style: TextStyle(color: Colors.white, fontSize: 21),),
+          ),
+        ),
+      )
+    );
+  }
+}
+
 
 
 

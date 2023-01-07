@@ -3,7 +3,10 @@ class Backend{
   }
 
   String convert(String input_){
-    var symbol = {'|omega':"\u03A9"};
+    if (input_ == ""){
+      return input_;
+    }
+    var symbol = {'|alpha':"\u03B1",'|Delta': "\u0394", '|Omega': "\u03A9", '|pi': "\u03C0", '|Theta': "\u03F4", '|lambda': "\u03BB", '|theta': "\u03B8", '|degree': "\u03B1", '|hat': "\u0302"};
     List formatted_string = input_.split(' ');
     for(var i = 0; i<formatted_string.length; i++){
       String current_word = formatted_string[i];
